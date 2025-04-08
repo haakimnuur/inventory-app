@@ -1,0 +1,194 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+* {
+  margin: 0;
+  border: 0;
+  padding: 0;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  font-family: 'Poppins', sans-serif;
+}
+
+header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  border-bottom: 1px solid black;
+  margin-bottom: 20px;
+  background-color: #FFD25A;
+}
+
+nav {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  gap: 10px;
+  color: #191919
+}
+
+nav > a {
+  font-size: 24px;
+}
+
+nav > div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  gap: 15px;
+  font-size: 18px;
+}
+
+nav > div a:hover {
+  text-decoration: underline;
+}
+
+a {
+  text-decoration: none;
+  text-underline-offset: 3px;
+  color: inherit;
+}
+
+main {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  padding: 0px 20px;
+  margin-bottom: 30px;
+}
+
+main > div {
+  width: 100%;
+  max-width: 1024px;
+}
+
+.default-btn {
+  background-color: #FFD25A;
+  padding: 10px 20px;
+  border-radius: 5px;
+  color: black;
+  font-weight: 500;
+  text-transform: uppercase;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.default-btn:hover {
+  background-color: #f9c843;
+}
+
+.edit-btn, .delete-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  width: 100px;
+  padding: 5px 10px;
+  font-weight: 500;
+  border-radius: 5px;
+  box-sizing: border-box;
+  text-transform: uppercase;
+}
+
+.edit-btn {
+  background-color: #C5DAC1;
+}
+
+.delete-form {
+  display: flex;
+  width: 100px;
+  font-family: 'Poppins', sans-serif;
+}
+
+.delete-btn {
+  background-color: rgb(243, 119, 119);
+  cursor: pointer;
+}
+
+.category-bar {
+  padding: 10px 20px;
+  background-color: #f9c843;
+  border-radius: 30px;
+  width: fit-content;
+  margin: 5px 0px;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+.list-card {
+  cursor: pointer;
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  padding: 20px 16px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  background-color: #fff;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+.list-card:hover {
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  transform: translateY(-4px);
+}
+
+.date-container {
+  margin-left: auto;
+  display: flex;
+  flex-direction: column;
+  color: rgb(98, 98, 98);
+  font-size: 14px;
+  margin-bottom: 20px;
+  text-align: right;
+}
+
+/* Style for the badge */
+.badge {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+/* Tooltip (on hover) */
+.badge:hover::after {
+  content: attr(title);
+  position: absolute;
+  top: -35px; /* Adjust to your liking */
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #696969;
+  color: white;
+  padding: 5px;
+  border-radius: 5px;
+  font-size: 14px;
+  white-space: nowrap;
+  opacity: 0;
+  animation: fadeIn 0.2s forwards;
+}
+
+/* Animation for the tooltip */
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+  }
+}
+
+.disabled {
+  pointer-events: none; 
+  color: grey;         
+  text-decoration: none; 
+}

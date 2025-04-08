@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <title>Inventory App</title>
+  <link rel="stylesheet" href="/css/global.css">
+  <link rel="stylesheet" href="/css/products.css">
+</head>
+<body>
+  <%- include("partials/header") %>
+  <main>
+    <div class="products-container">
+      <div>
+        <h1>Products</h1>
+        <a class="default-btn" href="products/new">Add product</a>
+      </div>
+    
+      <ul>
+        <% products.forEach(product => { %>
+          <li class="product-card list-card" data-link="/products/<%= product.id %>">
+            <img src="<%= product.is_default ? '/uploads/' + product.image : product.image %>" alt="Product" width="auto" style="height: 250px;">
+            <div>
+              <h2><%= product.name %></h2>
+              <p>Price: $<%= product.price %></p>
+              <p>Quantity: <%= product.quantity %></p>
+              <a href="categories/<%= product.category_id %>">
+                <div class="category-bar"><%= product.category_name %></div>
+              </a>
+            </div>
+          </li>
+        <% }) %>
+      </ul>
+    </div>
+  </main>
+  <script>
+    document.querySelectorAll('.product-card').forEach(card => {
+      card.addEventListener('click', (e) => {
+        // Prevent clicks on buttons or links from triggering the redirect
+        if (e.target.tagName !== 'BUTTON' && e.target.tagName !== 'A') {
+          window.location.href = card.dataset.link;
+        }
+      });
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Inventory App</title>
+  <link rel="stylesheet" href="/css/global.css">
+  <link rel="stylesheet" href="/css/productForm.css">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+</head>
+<body>
+  <%- include("partials/header") %>
+  <main>
+    <div>
+      <div class="product-form-container">
+        <h1>Product form</h1>
+        <form class="product-form" action="<%= product ? `/products/${product.id}/edit` : '/products/new' %>" enctype="multipart/form-data" method="POST">
+          <label for="name">
+            Product name
+            <input type="text" name="name" maxlength="50" value="<%= product ? product.name : '' %>" required>
+          </label>
+          <label for="description">
+            Description
+            <textarea name="description" rows="5" maxlength="200"><%= product ? product.description : '' %></textarea>
+          </label>
+          <label for="category">
+            Category
+            <select name="category_id" id="category" required>
+              <option value="">Select a category</option>
+            
+              <% parentCategories.forEach(parent => { %>
+                <% if (parent.id == 1) { %>
+                  <option value="<%= parent.id %>" <% product && product.category_id === parent.id ? 'selected' : '' %>><%= parent.category %></option>
+                <% } else { %>
+                  <optgroup label="<%= parent.category %>">
+                    <% subCategories
+                    .filter(cat => cat.parent_category_id === parent.id)
+                    .forEach(sub => { %>
+                      <option 
+                      value="<%= sub.id %>" 
+                      <%= product && product.category_id === sub.id ? 'selected' : '' %>>
+                      <%= sub.category %>
+                    </option>
+                    <% }) %>
+                  </optgroup>
+                <% } %>
+              <% }) %>
+            </select>
+          </label>
+              
+          <label for="price">
+            Price
+            <input type="number" name="price" step="0.01" min="0" max="99999999" value="<%= product ? product.price : '' %>" required>
+          </label>
+          <label for="quantity">
+            Quantity
+            <input type="number" name="quantity" max="999999" value="<%= product ? product.quantity : '' %>" required>
+          </label>
+      
+          <label for="image">
+            Product Image
+            <input type="file" name="image" accept="image/*" <%= product ? '' : 'required' %>/>
+          </label>
+      
+          <% if (product && product.image) { %>
+            <img src="<%= product.is_default ? '/uploads/' + product.image : product.image %>" alt="Product Image" style="max-width: 200px; max-height: 400px;" />
+          <% } %>
+        
+          <button class="default-btn" type="submit"><%= product ? 'Update' : 'Add' %> product</button>
+        </form>
+      </div>
+    </div>
+  </main>
+</body>
+</html>

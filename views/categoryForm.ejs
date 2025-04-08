@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Inventory App</title>
+  <link rel="stylesheet" href="/css/global.css">
+  <link rel="stylesheet" href="/css/categoryForm.css">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+</head>
+<body>
+  <%- include("partials/header") %>
+  <main>
+    <div>
+      <div class="category-form-container">
+        <h1><%= category ? 'Edit ' + category.category : 'New Category'%></h1>
+        <form class="category-form" action="<%= category ? `/categories/${category.id}/edit` : '/categories/create' %>" method="POST">
+          <label>
+            Category Name:
+            <input type="text" name="category" maxlength="50" value="<%= category ? category.category : '' %>" placeholder="Category" required />
+          </label>
+        
+          <label>
+            Description:
+            <textarea maxlength="200" rows="5" name="description"><%= category ? category.description : '' %></textarea>
+          </label>
+        
+          <% if (!isEditing) { %>
+          <div class="type-container">
+            <!-- Category Type Selection -->
+            <p>Category Type:</p>
+            <div>
+              <label>
+                <input type="radio" name="category_type" value="parent" id="parentCategoryOption" onclick="toggleParentCategory()" checked>
+                Parent Category
+              </label>
+              
+              <label>
+                <input type="radio" name="category_type" value="sub" id="subCategory" onclick="toggleParentCategory()">
+                Sub-Category
+              </label>
+            </div>
+          </div>
+            
+            <!-- Parent Category Dropdown -->
+            <label for="parentCategory">
+              Parent Category:
+              <select name="parent_category_id" id="parentCategory" disabled>
+                <option value="">Select Parent Category</option>
+                <% parentCategories.forEach(parent => { %>
+                  <option value="<%= parent.id %>" <%= category && parent.id === category.parent_category_id ? 'selected' : '' %> >
+                    <%= parent.category %>
+                  </option>
+                  <% }) %>
+              </select>
+            </label>
+          <% } %>
+      
+          <button class="default-btn" type="submit"><%= category ? 'Update' : 'Create' %> Category</button>
+        </form>
+      </div>
+    </div>
+  </main>
+  <script>
+    function toggleParentCategory() {
+      const parentCategorySelect = document.getElementById("parentCategory");
+      const isSubCategory = document.getElementById("subCategory").checked;
+      
+      parentCategorySelect.disabled = !isSubCategory;
+    }
+  </script>
+</body>
+</html>

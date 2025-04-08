@@ -1,0 +1,17 @@
+.welcome-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.welcome-container h1 {
+  margin-bottom: 10px;
+}
+
+.welcome-container > div {
+  display: flex;
+  gap: 20px;
+}
+
+.welcome-container p {
+  margin-bottom: 20px;
+}
